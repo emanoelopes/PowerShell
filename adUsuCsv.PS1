@@ -2,5 +2,5 @@
 
 Import-Module ActiveDirectory
 
-Import-CSV C:\Users\emanoel\alunos_smd_test.csv | ForEach-Object { New-ADUser -Name $_.FullName -SamAccountName $_.UserName -AccountPassword (ConvertTo-SecureString $_.Senha -AsPlainText -Force) -Path 'OU=OU_Alunos,DC=SMD,DC=local' -SurName $_.SurName -UserPrincipalName $_.UserPrincipalName -ChangePasswordAtLogon $true -Enabled $true }
+Import-CSV C:\Users\emanoel\alunos_smd_test.csv -Enconding UTF8 | ForEach-Object { New-ADUser -Name $_.FullName -SamAccountName $_.UserName -AccountPassword (ConvertTo-SecureString $_.Senha -AsPlainText -Force) -Path 'OU=OU_Alunos,DC=SMD,DC=local' -SurName $_.SurName -UserPrincipalName $_.UserPrincipalName -ChangePasswordAtLogon $true -Enabled $true }
 
