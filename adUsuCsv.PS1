@@ -1,6 +1,10 @@
-#Script para adicionar usuários no domínio smd.local e ingressá-los na OU OU_alunos, a partir de um arquivo CSV
+﻿##Script para importar usuários a partir de um arquivo csv
+##Autor: Emanoel
+##Data: 25/02/2016
 
-Import-Module ActiveDirectory
+Import-Module ActiveDirectory 
 
-Import-CSV C:\Users\emanoel\alunos_smd_test.csv -Enconding UTF8 | ForEach-Object { New-ADUser -Name $_.FullName -SamAccountName $_.UserName -AccountPassword (ConvertTo-SecureString $_.Senha -AsPlainText -Force) -Path 'OU=OU_Alunos,DC=SMD,DC=local' -SurName $_.SurName -UserPrincipalName $_.UserPrincipalName -ChangePasswordAtLogon $true -Enabled $true }
-
+Import-CSV alunos_smd.csv | 
+ForEach-Object {
+New-ADUser -Name $_.FullName -SamAccountName $_.UserName -AccountPassword (ConvertTo-SecureString $_.AccountPassword -AsPlainText -Force) -Path 'OU=OU_Alunos,DC=SMD,DC=local' -GivenName $_.GivenName -SurName $_.SurName -DisplayName $_.DisplayName -ChangePasswordAtLogon $true -Enabled $true -Description $_.Description
+}
